@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgres:12-alpine
+    env_file:
+       - docker/postgres.env
+    volumes:
+      - postgres:/data/postgres
+      - ./docker/scripts/postgres/:/docker-entrypoint-initdb.d/
+ 
+  server:
+    build:
+      context: .
+    depends_on:
+      - postgres
+    env_file:
+       - docker/airflow.env
+    ports:
+      - '8080:8080'
+    volumes:
+       - ./dags:/opt/airflow/dags
+
+volumes:
+    postgres:
