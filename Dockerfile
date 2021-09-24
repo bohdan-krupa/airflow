@@ -6,7 +6,8 @@ USER root
 RUN apt-get update \
 && apt-get -y install libaio-dev \
 && apt-get install postgresql-client \
-&& apt-get -y install firefox-esr
+&& apt-get -y install firefox-esr \
+&& apt-get install unzip
 RUN mkdir extra
 
 COPY docker/scripts/airflow/init.sh ./init.sh
